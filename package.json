@@ -13,5 +13,10 @@
     "react-dom": "^19",
     "next": "^16.1.6",
     "resend": "^3.5.0"
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "@types/react": "^19",
+    "@types/node": "^20"
   }
 }
