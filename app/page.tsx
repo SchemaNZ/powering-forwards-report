@@ -6,8 +6,10 @@ export default function ReportPage() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     farmType: 'dairy',
     region: 'Southland',
+    timeline: 'interested',
   })
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -32,7 +34,7 @@ export default function ReportPage() {
       
       if (response.ok) {
         setSubmitted(true)
-        setFormData({ name: '', email: '', farmType: 'dairy', region: 'Southland' })
+        setFormData({ name: '', email: '', phone: '', farmType: 'dairy', region: 'Southland', timeline: 'interested' })
         
         // Trigger PDF download after successful submission
         setTimeout(() => {
@@ -138,6 +140,21 @@ export default function ReportPage() {
                       placeholder="your@email.com"
                     />
                   </div>
+
+                  <div>
+                    <label htmlFor="phone" style={{ display: 'block', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--color-neutral-900)' }}>
+                      Phone Number
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      style={{ width: '100%', padding: '0.75rem 1rem', border: '2px solid var(--color-neutral-200)', borderRadius: '0.5rem', backgroundColor: 'var(--color-surface)', color: 'var(--color-neutral-900)', fontSize: '1rem', fontFamily: "'Rubik', sans-serif" }}
+                      placeholder="Your phone number"
+                    />
+                  </div>
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
@@ -172,6 +189,25 @@ export default function ReportPage() {
                       <option value="Otago">Otago</option>
                       <option value="Canterbury">Canterbury</option>
                       <option value="West Coast">West Coast</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label htmlFor="timeline" style={{ display: 'block', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--color-neutral-900)' }}>
+                      Installation Timeline
+                    </label>
+                    <select
+                      id="timeline"
+                      name="timeline"
+                      value={formData.timeline}
+                      onChange={handleChange}
+                      style={{ width: '100%', padding: '0.75rem 1rem', border: '2px solid var(--color-neutral-200)', borderRadius: '0.5rem', backgroundColor: 'var(--color-surface)', color: 'var(--color-neutral-900)', fontSize: '1rem', fontFamily: "'Rubik', sans-serif", cursor: 'pointer' }}
+                    >
+                      <option value="next-month">Next Month</option>
+                      <option value="next-3-months">Next 3 Months</option>
+                      <option value="next-6-months">Next 6 Months</option>
+                      <option value="next-year">Next Year</option>
+                      <option value="interested">Just Interested in the Report</option>
                     </select>
                   </div>
                 </div>
