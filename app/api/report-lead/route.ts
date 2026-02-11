@@ -15,6 +15,15 @@ export async function POST(request: Request) {
       )
     }
 
+    // Format timeline for display
+    const timelineDisplay = {
+      'next-month': 'Next Month',
+      'next-3-months': 'Next 3 Months',
+      'next-6-months': 'Next 6 Months',
+      'next-year': 'Next Year',
+      'interested': 'Just Interested in the Report',
+    }[timeline] || timeline
+
     // Send confirmation email to user
     await resend.emails.send({
       from: 'Powering Forwards <reports@electrifysouthland.nz>',
@@ -35,15 +44,6 @@ export async function POST(request: Request) {
         <p>Best regards,<br>Electrify Southland</p>
       `,
     })
-
-    // Format timeline for display
-    const timelineDisplay = {
-      'next-month': 'Next Month',
-      'next-3-months': 'Next 3 Months',
-      'next-6-months': 'Next 6 Months',
-      'next-year': 'Next Year',
-      'interested': 'Just Interested in the Report',
-    }[timeline] || timeline
 
     // Send lead notification to Nathan
     await resend.emails.send({
