@@ -16,13 +16,14 @@ export async function POST(request: Request) {
     }
 
     // Format timeline for display
-    const timelineDisplay = {
+    const timelineMap: Record<string, string> = {
       'next-month': 'Next Month',
       'next-3-months': 'Next 3 Months',
       'next-6-months': 'Next 6 Months',
       'next-year': 'Next Year',
       'interested': 'Just Interested in the Report',
-    }[timeline] || timeline
+    }
+    const timelineDisplay = timelineMap[timeline as string] || (timeline as string)
 
     // Send confirmation email to user
     await resend.emails.send({
