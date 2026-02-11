@@ -45,7 +45,7 @@ export default function ReportPage() {
   }
 
   return (
-    <div className="min-h-screen py-8 px-4" style={{ backgroundColor: '#E8F0E0' }}>
+    <div className="min-h-screen py-12 px-4 md:px-8" style={{ backgroundColor: '#E8F0E0' }}>
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <header className="text-center mb-12">
