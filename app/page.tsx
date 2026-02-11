@@ -236,7 +236,7 @@ export default function ReportPage() {
                 </button>
 
                 <p style={{ fontSize: '0.875rem', color: 'var(--color-neutral-700)', textAlign: 'center', marginTop: '1rem' }}>
-                  We'll send you the full report instantly. Your details help us connect you with certified solar installers.
+                  We'll send you the full report instantly. Your details will be added to the Electrify Southland mailing list which you can opt out of at any time.
                 </p>
               </form>
             </div>
