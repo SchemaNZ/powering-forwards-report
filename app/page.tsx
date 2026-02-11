@@ -28,25 +28,36 @@ export default function ReportPage() {
         body: JSON.stringify(formData),
       })
       
+      const data = await response.json()
+      
       if (response.ok) {
         setSubmitted(true)
         setFormData({ name: '', email: '', farmType: 'dairy', region: 'Southland' })
         
         // Trigger PDF download after successful submission
         setTimeout(() => {
-          window.location.href = '/powering-forwards-report.pdf'
+          const link = document.createElement('a')
+          link.href = '/powering-forwards-report.pdf'
+          link.download = 'powering-forwards-report.pdf'
+          document.body.appendChild(link)
+          link.click()
+          document.body.removeChild(link)
         }, 500)
+      } else {
+        console.error('Form submission failed:', data)
+        alert('There was an error. Please try again.')
       }
     } catch (error) {
       console.error('Error submitting form:', error)
+      alert('There was an error. Please try again.')
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <div className="min-h-screen py-12 px-4 md:px-8" style={{ backgroundColor: '#E8F0E0' }}>
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen py-12" style={{ backgroundColor: '#E8F0E0' }}>
+      <div className="max-w-3xl mx-auto px-6 md:px-8">
         {/* Header */}
         <header className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-sans font-bold text-neutral-900 mb-2">
