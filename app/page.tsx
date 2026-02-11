@@ -56,67 +56,59 @@ export default function ReportPage() {
   }
 
   return (
-    <div className="min-h-screen py-12" style={{ backgroundColor: '#E8F0E0' }}>
-      <div className="max-w-3xl mx-auto px-6 md:px-8">
+    <div className="min-h-screen" style={{ backgroundColor: 'var(--color-neutral-50)', padding: '3rem 1.5rem' }}>
+      <div className="max-w-3xl mx-auto">
         {/* Header */}
         <header className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-sans font-bold text-neutral-900 mb-2">
+          <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 700, marginBottom: '0.5rem' }}>
             Powering Forwards
           </h1>
-          <p className="text-base md:text-lg text-neutral-700 font-medium">
+          <p style={{ fontSize: '1.25rem', fontWeight: 500, color: 'var(--color-primary)', marginBottom: '0.5rem' }}>
             Farm Energy Analysis Report
           </p>
-          <p className="text-sm md:text-base text-neutral-600 mt-2">
+          <p style={{ fontSize: '1rem', color: 'var(--color-neutral-700)', lineHeight: 1.8 }}>
             A Life Cycle Cost and Resilience Analysis of Backup Power Solutions for Southland Farms
           </p>
         </header>
 
         {/* Content Box */}
-        <div className="bg-white rounded-2xl p-8 md:p-10 border-2 border-accent/30 mb-8">
-          <div className="mb-8">
-            <h2 className="text-2xl md:text-3xl font-sans font-bold text-neutral-900 mb-4">
+        <div style={{ backgroundColor: 'var(--color-surface)', borderRadius: '1rem', padding: '2rem', border: '2px solid var(--color-neutral-200)', marginBottom: '2rem', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)' }}>
+          <div style={{ marginBottom: '2rem' }}>
+            <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 700, marginBottom: '1rem' }}>
               Discover the Financial Case for Solar + Battery Storage
             </h2>
-            <p className="text-base md:text-lg text-neutral-700 mb-4">
+            <p style={{ fontSize: '1rem', color: 'var(--color-neutral-700)', marginBottom: '1rem', lineHeight: 1.8 }}>
               This comprehensive report analyzes the economics of transitioning from diesel backup generators to solar + battery systems for Southland farms.
             </p>
-            <p className="text-base text-neutral-600 mb-4">
+            <p style={{ fontSize: '1rem', color: 'var(--color-neutral-700)', marginBottom: '1rem' }}>
               Download the full report to learn:
             </p>
-            <ul className="space-y-3 text-neutral-700 mb-8">
-              <li className="flex items-start">
-                <span className="text-green-600 font-bold mr-3">✓</span>
-                <span className="text-base">20-year net present value analysis for different farm types</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-600 font-bold mr-3">✓</span>
-                <span className="text-base">Risk mitigation benefits: Generator failure, fuel supply, energy price hedging</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-600 font-bold mr-3">✓</span>
-                <span className="text-base">System sizing and financing options for your farm</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-600 font-bold mr-3">✓</span>
-                <span className="text-base">Scenario analysis across different inflation rates</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-600 font-bold mr-3">✓</span>
-                <span className="text-base">Environmental and resilience benefits</span>
-              </li>
+            <ul style={{ listStyle: 'none', padding: 0, marginBottom: '2rem' }}>
+              {[
+                '20-year net present value analysis for different farm types',
+                'Risk mitigation benefits: Generator failure, fuel supply, energy price hedging',
+                'System sizing and financing options for your farm',
+                'Scenario analysis across different inflation rates',
+                'Environmental and resilience benefits',
+              ].map((item, i) => (
+                <li key={i} style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '1rem' }}>
+                  <span style={{ color: 'var(--color-primary)', fontWeight: 700, marginRight: '1rem', flexShrink: 0 }}>✓</span>
+                  <span style={{ fontSize: '1rem', color: 'var(--color-neutral-700)' }}>{item}</span>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Lead Capture Form */}
           {!submitted ? (
             <div>
-              <h3 className="text-xl md:text-2xl font-sans font-bold text-neutral-900 mb-6">
+              <h3 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1.5rem' }}>
                 Download the Report
               </h3>
-              <form onSubmit={handleSubmit} className="space-y-5">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '1.5rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
                   <div>
-                    <label htmlFor="name" className="block text-base font-bold text-neutral-900 mb-2">
+                    <label htmlFor="name" style={{ display: 'block', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--color-neutral-900)' }}>
                       Full Name *
                     </label>
                     <input
@@ -126,13 +118,13 @@ export default function ReportPage() {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 text-base"
+                      style={{ width: '100%', padding: '0.75rem 1rem', border: '2px solid var(--color-neutral-200)', borderRadius: '0.5rem', backgroundColor: 'var(--color-surface)', color: 'var(--color-neutral-900)', fontSize: '1rem', fontFamily: "'Rubik', sans-serif" }}
                       placeholder="Your name"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="email" className="block text-base font-bold text-neutral-900 mb-2">
+                    <label htmlFor="email" style={{ display: 'block', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--color-neutral-900)' }}>
                       Email Address *
                     </label>
                     <input
@@ -142,15 +134,15 @@ export default function ReportPage() {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 text-base"
+                      style={{ width: '100%', padding: '0.75rem 1rem', border: '2px solid var(--color-neutral-200)', borderRadius: '0.5rem', backgroundColor: 'var(--color-surface)', color: 'var(--color-neutral-900)', fontSize: '1rem', fontFamily: "'Rubik', sans-serif" }}
                       placeholder="your@email.com"
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
                   <div>
-                    <label htmlFor="farmType" className="block text-base font-bold text-neutral-900 mb-2">
+                    <label htmlFor="farmType" style={{ display: 'block', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--color-neutral-900)' }}>
                       Farm Type
                     </label>
                     <select
@@ -158,7 +150,7 @@ export default function ReportPage() {
                       name="farmType"
                       value={formData.farmType}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 text-base"
+                      style={{ width: '100%', padding: '0.75rem 1rem', border: '2px solid var(--color-neutral-200)', borderRadius: '0.5rem', backgroundColor: 'var(--color-surface)', color: 'var(--color-neutral-900)', fontSize: '1rem', fontFamily: "'Rubik', sans-serif", cursor: 'pointer' }}
                     >
                       <option value="dairy">Dairy</option>
                       <option value="sheepBeef">Sheep/Beef</option>
@@ -166,7 +158,7 @@ export default function ReportPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="region" className="block text-base font-bold text-neutral-900 mb-2">
+                    <label htmlFor="region" style={{ display: 'block', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--color-neutral-900)' }}>
                       Region
                     </label>
                     <select
@@ -174,7 +166,7 @@ export default function ReportPage() {
                       name="region"
                       value={formData.region}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 text-base"
+                      style={{ width: '100%', padding: '0.75rem 1rem', border: '2px solid var(--color-neutral-200)', borderRadius: '0.5rem', backgroundColor: 'var(--color-surface)', color: 'var(--color-neutral-900)', fontSize: '1rem', fontFamily: "'Rubik', sans-serif", cursor: 'pointer' }}
                     >
                       <option value="Southland">Southland</option>
                       <option value="Otago">Otago</option>
@@ -187,23 +179,38 @@ export default function ReportPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed mt-6 text-base"
+                  style={{
+                    width: '100%',
+                    backgroundColor: loading ? 'var(--color-neutral-500)' : 'var(--color-primary)',
+                    color: 'white',
+                    padding: '1rem',
+                    marginTop: '1.5rem',
+                    fontSize: '1rem',
+                    fontWeight: 700,
+                    opacity: loading ? 0.5 : 1,
+                    cursor: loading ? 'not-allowed' : 'pointer',
+                    border: 'none',
+                    borderRadius: '0.5rem',
+                    transition: 'all 0.2s ease',
+                  }}
+                  onMouseEnter={(e) => !loading && (e.currentTarget.style.backgroundColor = 'var(--color-primary-dark)')}
+                  onMouseLeave={(e) => !loading && (e.currentTarget.style.backgroundColor = 'var(--color-primary)')}
                 >
                   {loading ? 'Processing...' : 'Download Report 📄'}
                 </button>
 
-                <p className="text-sm text-neutral-600 text-center mt-4">
+                <p style={{ fontSize: '0.875rem', color: 'var(--color-neutral-700)', textAlign: 'center', marginTop: '1rem' }}>
                   We'll send you the full report instantly. Your details help us connect you with certified solar installers.
                 </p>
               </form>
             </div>
           ) : (
-            <div className="text-center py-12">
-              <div className="text-6xl mb-4">✓</div>
-              <h3 className="text-2xl font-bold text-green-600 mb-2">
+            <div style={{ textAlign: 'center', padding: '3rem 0' }}>
+              <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>✓</div>
+              <h3 style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--color-primary)', marginBottom: '1rem' }}>
                 Report Downloaded!
               </h3>
-              <p className="text-neutral-700 text-base">
+              <p style={{ color: 'var(--color-neutral-700)' }}>
                 The PDF should download shortly. Check your inbox for details about next steps.
               </p>
             </div>
@@ -211,13 +218,23 @@ export default function ReportPage() {
         </div>
 
         {/* CTA to Calculator */}
-        <div className="text-center">
-          <p className="text-neutral-700 mb-4 text-base">
+        <div style={{ textAlign: 'center' }}>
+          <p style={{ color: 'var(--color-neutral-700)', marginBottom: '1.5rem' }}>
             Want to run your own calculations?
           </p>
           <a
             href="https://farmcalc.electrifysouthland.nz"
-            className="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg transition-colors text-base"
+            style={{
+              display: 'inline-block',
+              backgroundColor: 'var(--color-primary)',
+              color: 'white',
+              fontWeight: 700,
+              padding: '1rem 2rem',
+              borderRadius: '0.5rem',
+              transition: 'all 0.2s ease',
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--color-primary-dark)')}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'var(--color-primary)')}
           >
             Try the Interactive Calculator 🧮
           </a>
