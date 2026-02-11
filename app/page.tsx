@@ -33,7 +33,9 @@ export default function ReportPage() {
         setFormData({ name: '', email: '', farmType: 'dairy', region: 'Southland' })
         
         // Trigger PDF download after successful submission
-        window.location.href = '/powering-forwards-report.pdf'
+        setTimeout(() => {
+          window.location.href = '/powering-forwards-report.pdf'
+        }, 500)
       }
     } catch (error) {
       console.error('Error submitting form:', error)
@@ -43,53 +45,53 @@ export default function ReportPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-green-100 py-12 px-4">
-      <div className="max-w-2xl mx-auto">
+    <div className="min-h-screen py-8 px-4" style={{ backgroundColor: '#E8F0E0' }}>
+      <div className="max-w-3xl mx-auto">
         {/* Header */}
         <header className="text-center mb-12">
-          <h1 className="text-5xl md:text-6xl font-bold text-neutral-900 mb-4">
+          <h1 className="text-4xl md:text-5xl font-sans font-bold text-neutral-900 mb-2">
             Powering Forwards
           </h1>
-          <p className="text-2xl text-green-700 font-semibold mb-2">
+          <p className="text-base md:text-lg text-neutral-700 font-medium">
             Farm Energy Analysis Report
           </p>
-          <p className="text-lg text-neutral-700">
+          <p className="text-sm md:text-base text-neutral-600 mt-2">
             A Life Cycle Cost and Resilience Analysis of Backup Power Solutions for Southland Farms
           </p>
         </header>
 
         {/* Content Box */}
-        <div className="bg-white rounded-lg shadow-lg p-8 md:p-12 mb-8">
+        <div className="bg-white rounded-2xl p-8 md:p-10 border-2 border-accent/30 mb-8">
           <div className="mb-8">
-            <h2 className="text-3xl font-bold text-neutral-900 mb-4">
+            <h2 className="text-2xl md:text-3xl font-sans font-bold text-neutral-900 mb-4">
               Discover the Financial Case for Solar + Battery Storage
             </h2>
-            <p className="text-lg text-neutral-700 mb-4">
+            <p className="text-base md:text-lg text-neutral-700 mb-4">
               This comprehensive report analyzes the economics of transitioning from diesel backup generators to solar + battery systems for Southland farms.
             </p>
-            <p className="text-neutral-600 mb-4">
+            <p className="text-base text-neutral-600 mb-4">
               Download the full report to learn:
             </p>
-            <ul className="space-y-2 text-neutral-700 mb-6">
+            <ul className="space-y-3 text-neutral-700 mb-8">
               <li className="flex items-start">
                 <span className="text-green-600 font-bold mr-3">✓</span>
-                <span>20-year net present value analysis for different farm types</span>
+                <span className="text-base">20-year net present value analysis for different farm types</span>
               </li>
               <li className="flex items-start">
                 <span className="text-green-600 font-bold mr-3">✓</span>
-                <span>Risk mitigation benefits: Generator failure, fuel supply, energy price hedging</span>
+                <span className="text-base">Risk mitigation benefits: Generator failure, fuel supply, energy price hedging</span>
               </li>
               <li className="flex items-start">
                 <span className="text-green-600 font-bold mr-3">✓</span>
-                <span>System sizing and financing options for your farm</span>
+                <span className="text-base">System sizing and financing options for your farm</span>
               </li>
               <li className="flex items-start">
                 <span className="text-green-600 font-bold mr-3">✓</span>
-                <span>Scenario analysis across different inflation rates</span>
+                <span className="text-base">Scenario analysis across different inflation rates</span>
               </li>
               <li className="flex items-start">
                 <span className="text-green-600 font-bold mr-3">✓</span>
-                <span>Environmental and resilience benefits</span>
+                <span className="text-base">Environmental and resilience benefits</span>
               </li>
             </ul>
           </div>
@@ -97,45 +99,47 @@ export default function ReportPage() {
           {/* Lead Capture Form */}
           {!submitted ? (
             <div>
-              <h3 className="text-2xl font-bold text-neutral-900 mb-6">
+              <h3 className="text-xl md:text-2xl font-sans font-bold text-neutral-900 mb-6">
                 Download the Report
               </h3>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-semibold text-neutral-900 mb-2">
-                    Full Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
-                    placeholder="Your name"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-sm font-semibold text-neutral-900 mb-2">
-                    Email Address *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
-                    placeholder="your@email.com"
-                  />
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
+              <form onSubmit={handleSubmit} className="space-y-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <div>
-                    <label htmlFor="farmType" className="block text-sm font-semibold text-neutral-900 mb-2">
+                    <label htmlFor="name" className="block text-base font-bold text-neutral-900 mb-2">
+                      Full Name *
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 text-base"
+                      placeholder="Your name"
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="email" className="block text-base font-bold text-neutral-900 mb-2">
+                      Email Address *
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 text-base"
+                      placeholder="your@email.com"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div>
+                    <label htmlFor="farmType" className="block text-base font-bold text-neutral-900 mb-2">
                       Farm Type
                     </label>
                     <select
@@ -143,7 +147,7 @@ export default function ReportPage() {
                       name="farmType"
                       value={formData.farmType}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
+                      className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 text-base"
                     >
                       <option value="dairy">Dairy</option>
                       <option value="sheepBeef">Sheep/Beef</option>
@@ -151,7 +155,7 @@ export default function ReportPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="region" className="block text-sm font-semibold text-neutral-900 mb-2">
+                    <label htmlFor="region" className="block text-base font-bold text-neutral-900 mb-2">
                       Region
                     </label>
                     <select
@@ -159,7 +163,7 @@ export default function ReportPage() {
                       name="region"
                       value={formData.region}
                       onChange={handleChange}
-                      className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
+                      className="w-full px-4 py-2 border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 text-base"
                     >
                       <option value="Southland">Southland</option>
                       <option value="Otago">Otago</option>
@@ -172,9 +176,9 @@ export default function ReportPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed mt-6"
+                  className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed mt-6 text-base"
                 >
-                  {loading ? 'Processing...' : 'Download Report (PDF)'}
+                  {loading ? 'Processing...' : 'Download Report 📄'}
                 </button>
 
                 <p className="text-sm text-neutral-600 text-center mt-4">
@@ -183,12 +187,12 @@ export default function ReportPage() {
               </form>
             </div>
           ) : (
-            <div className="text-center py-8">
+            <div className="text-center py-12">
               <div className="text-6xl mb-4">✓</div>
               <h3 className="text-2xl font-bold text-green-600 mb-2">
                 Report Downloaded!
               </h3>
-              <p className="text-neutral-700">
+              <p className="text-neutral-700 text-base">
                 The PDF should download shortly. Check your inbox for details about next steps.
               </p>
             </div>
@@ -197,14 +201,14 @@ export default function ReportPage() {
 
         {/* CTA to Calculator */}
         <div className="text-center">
-          <p className="text-neutral-700 mb-4">
+          <p className="text-neutral-700 mb-4 text-base">
             Want to run your own calculations?
           </p>
           <a
             href="https://farmcalc.electrifysouthland.nz"
-            className="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-colors"
+            className="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-lg transition-colors text-base"
           >
-            Try the Interactive Calculator
+            Try the Interactive Calculator 🧮
           </a>
         </div>
       </div>
