@@ -1,19 +1,26 @@
 import { Resend } from 'resend'
+import { reportLeadSchema } from '@/lib/schemas'
 
 export async function POST(request: Request) {
   try {
+    // Basic Rate Limiting (Optional: integrate with Upstash Redis for production)
+    // const ip = request.headers.get('x-forwarded-for') || 'unknown';
+    
     // Instantiate Resend at runtime, not build time
     const resend = new Resend(process.env.RESEND_API_KEY)
     
-    const { name, email, phone, farmType, region, timeline } = await request.json()
-
+    const body = await request.json()
+    
     // Validate input
-    if (!name || !email) {
+    const validation = reportLeadSchema.safeParse(body)
+    if (!validation.success) {
       return Response.json(
-        { error: 'Name and email are required' },
+        { error: 'Invalid input', details: validation.error.issues },
         { status: 400 }
       )
     }
+    
+    const { name, email, phone, farmType, region, timeline } = validation.data
 
     // Format timeline for display
     const timelineMap: Record<string, string> = {
@@ -69,9 +76,16 @@ export async function POST(request: Request) {
       { status: 200 }
     )
   } catch (error) {
-    console.error('Error handling lead:', error)
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+    
+    console.error('[REPORT_LEAD_ERROR]', {
+      timestamp: new Date().toISOString(),
+      error: errorMessage,
+      stack: error instanceof Error ? error.stack : undefined,
+    })
+    
     return Response.json(
-      { error: 'Failed to process request' },
+      { error: 'Failed to process request. Please try again later.' },
       { status: 500 }
     )
   }

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { inputStyle, labelStyle, cardStyle, buttonPrimaryStyle } from '@/styles/componentStyles'
 
 export default function ReportPage() {
   const [formData, setFormData] = useState({
@@ -13,6 +14,7 @@ export default function ReportPage() {
   })
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -22,6 +24,7 @@ export default function ReportPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
+    setError(null)
     
     try {
       const response = await fetch('/api/report-lead', {
@@ -46,12 +49,10 @@ export default function ReportPage() {
           document.body.removeChild(link)
         }, 500)
       } else {
-        console.error('Form submission failed:', data)
-        alert('There was an error. Please try again.')
+        setError(data.error || 'There was an error. Please try again.')
       }
-    } catch (error) {
-      console.error('Error submitting form:', error)
-      alert('There was an error. Please try again.')
+    } catch (err) {
+      setError('Network error. Please check your connection and try again.')
     } finally {
       setLoading(false)
     }
@@ -62,7 +63,7 @@ export default function ReportPage() {
       <div className="max-w-3xl mx-auto">
         {/* Header */}
         <header className="text-center mb-12">
-          <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 700, marginBottom: '0.5rem' }}>
+          <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--color-neutral-900)' }}>
             Powering Forwards
           </h1>
           <p style={{ fontSize: '1.25rem', fontWeight: 500, color: 'var(--color-primary)', marginBottom: '0.5rem' }}>
@@ -74,9 +75,9 @@ export default function ReportPage() {
         </header>
 
         {/* Content Box */}
-        <div style={{ backgroundColor: 'var(--color-surface)', borderRadius: '1rem', padding: '2rem', border: '2px solid var(--color-neutral-200)', marginBottom: '2rem', boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)' }}>
+        <div style={cardStyle}>
           <div style={{ marginBottom: '2rem' }}>
-            <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 700, marginBottom: '1rem' }}>
+            <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', fontWeight: 700, marginBottom: '1rem', color: 'var(--color-neutral-900)' }}>
               Discover the Financial Case for Solar + Battery Storage
             </h2>
             <p style={{ fontSize: '1rem', color: 'var(--color-neutral-700)', marginBottom: '1rem', lineHeight: 1.8 }}>
@@ -104,13 +105,20 @@ export default function ReportPage() {
           {/* Lead Capture Form */}
           {!submitted ? (
             <div>
-              <h3 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1.5rem' }}>
+              <h3 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '1.5rem', color: 'var(--color-neutral-900)' }}>
                 Download the Report
               </h3>
+              
+              {error && (
+                <div style={{ padding: '1rem', backgroundColor: '#fff5f5', border: '1px solid #feb2b2', borderRadius: '0.5rem', color: '#c53030', marginBottom: '1.5rem', fontSize: '0.875rem' }}>
+                  {error}
+                </div>
+              )}
+
               <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '1.5rem' }}>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
                   <div>
-                    <label htmlFor="name" style={{ display: 'block', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--color-neutral-900)' }}>
+                    <label htmlFor="name" style={labelStyle}>
                       Full Name *
                     </label>
                     <input
@@ -120,13 +128,13 @@ export default function ReportPage() {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      style={{ width: '100%', padding: '0.75rem 1rem', border: '2px solid var(--color-neutral-200)', borderRadius: '0.5rem', backgroundColor: 'var(--color-surface)', color: 'var(--color-neutral-900)', fontSize: '1rem', fontFamily: "'Rubik', sans-serif" }}
+                      style={inputStyle}
                       placeholder="Your name"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="email" style={{ display: 'block', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--color-neutral-900)' }}>
+                    <label htmlFor="email" style={labelStyle}>
                       Email Address *
                     </label>
                     <input
@@ -136,13 +144,13 @@ export default function ReportPage() {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      style={{ width: '100%', padding: '0.75rem 1rem', border: '2px solid var(--color-neutral-200)', borderRadius: '0.5rem', backgroundColor: 'var(--color-surface)', color: 'var(--color-neutral-900)', fontSize: '1rem', fontFamily: "'Rubik', sans-serif" }}
+                      style={inputStyle}
                       placeholder="your@email.com"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="phone" style={{ display: 'block', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--color-neutral-900)' }}>
+                    <label htmlFor="phone" style={labelStyle}>
                       Phone Number
                     </label>
                     <input
@@ -151,7 +159,7 @@ export default function ReportPage() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
-                      style={{ width: '100%', padding: '0.75rem 1rem', border: '2px solid var(--color-neutral-200)', borderRadius: '0.5rem', backgroundColor: 'var(--color-surface)', color: 'var(--color-neutral-900)', fontSize: '1rem', fontFamily: "'Rubik', sans-serif" }}
+                      style={inputStyle}
                       placeholder="Your phone number"
                     />
                   </div>
@@ -159,7 +167,7 @@ export default function ReportPage() {
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
                   <div>
-                    <label htmlFor="farmType" style={{ display: 'block', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--color-neutral-900)' }}>
+                    <label htmlFor="farmType" style={labelStyle}>
                       Farm Type
                     </label>
                     <select
@@ -167,7 +175,7 @@ export default function ReportPage() {
                       name="farmType"
                       value={formData.farmType}
                       onChange={handleChange}
-                      style={{ width: '100%', padding: '0.75rem 1rem', border: '2px solid var(--color-neutral-200)', borderRadius: '0.5rem', backgroundColor: 'var(--color-surface)', color: 'var(--color-neutral-900)', fontSize: '1rem', fontFamily: "'Rubik', sans-serif", cursor: 'pointer' }}
+                      style={inputStyle}
                     >
                       <option value="dairy">Dairy</option>
                       <option value="sheepBeef">Sheep/Beef</option>
@@ -175,7 +183,7 @@ export default function ReportPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="region" style={{ display: 'block', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--color-neutral-900)' }}>
+                    <label htmlFor="region" style={labelStyle}>
                       Region
                     </label>
                     <select
@@ -183,7 +191,7 @@ export default function ReportPage() {
                       name="region"
                       value={formData.region}
                       onChange={handleChange}
-                      style={{ width: '100%', padding: '0.75rem 1rem', border: '2px solid var(--color-neutral-200)', borderRadius: '0.5rem', backgroundColor: 'var(--color-surface)', color: 'var(--color-neutral-900)', fontSize: '1rem', fontFamily: "'Rubik', sans-serif", cursor: 'pointer' }}
+                      style={inputStyle}
                     >
                       <option value="Southland">Southland</option>
                       <option value="Otago">Otago</option>
@@ -193,7 +201,7 @@ export default function ReportPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="timeline" style={{ display: 'block', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--color-neutral-900)' }}>
+                    <label htmlFor="timeline" style={labelStyle}>
                       Installation Timeline
                     </label>
                     <select
@@ -201,7 +209,7 @@ export default function ReportPage() {
                       name="timeline"
                       value={formData.timeline}
                       onChange={handleChange}
-                      style={{ width: '100%', padding: '0.75rem 1rem', border: '2px solid var(--color-neutral-200)', borderRadius: '0.5rem', backgroundColor: 'var(--color-surface)', color: 'var(--color-neutral-900)', fontSize: '1rem', fontFamily: "'Rubik', sans-serif", cursor: 'pointer' }}
+                      style={inputStyle}
                     >
                       <option value="next-month">Next Month</option>
                       <option value="next-3-months">Next 3 Months</option>
@@ -216,18 +224,12 @@ export default function ReportPage() {
                   type="submit"
                   disabled={loading}
                   style={{
+                    ...buttonPrimaryStyle,
                     width: '100%',
-                    backgroundColor: loading ? 'var(--color-neutral-500)' : 'var(--color-primary)',
-                    color: 'white',
-                    padding: '1rem',
                     marginTop: '1.5rem',
-                    fontSize: '1rem',
-                    fontWeight: 700,
+                    backgroundColor: loading ? 'var(--color-neutral-500)' : 'var(--color-primary)',
                     opacity: loading ? 0.5 : 1,
                     cursor: loading ? 'not-allowed' : 'pointer',
-                    border: 'none',
-                    borderRadius: '0.5rem',
-                    transition: 'all 0.2s ease',
                   }}
                   onMouseEnter={(e) => !loading && (e.currentTarget.style.backgroundColor = 'var(--color-primary-dark)')}
                   onMouseLeave={(e) => !loading && (e.currentTarget.style.backgroundColor = 'var(--color-primary)')}
@@ -261,13 +263,9 @@ export default function ReportPage() {
           <a
             href="https://farmcalc.electrifysouthland.nz"
             style={{
+              ...buttonPrimaryStyle,
               display: 'inline-block',
-              backgroundColor: 'var(--color-primary)',
-              color: 'white',
-              fontWeight: 700,
-              padding: '1rem 2rem',
-              borderRadius: '0.5rem',
-              transition: 'all 0.2s ease',
+              textDecoration: 'none',
             }}
             onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = 'var(--color-primary-dark)')}
             onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = 'var(--color-primary)')}
